@@ -1,15 +1,25 @@
-function subarraySum(arr,k){
-    let result=[];
-    for(let start=0;start<arr.lenght;start++) {
-            let sum=0;
-            for(let end=start;end<arr.lenght;end++){
-                    sum+=arr[end];
-                    if(sum===k){
-                            result.push(arr.slice(start,end+1));
+Array.prototype.myReduce= function(fn,init){
+        let acc;
+        let start;
+        if(init!==undefined){
+                acc=init;
+                start=0;
+        }
+        else{
+                if(this.length===0){
+                        throw new
+                        TypeError("Reduce of empty array");
 
-                        }
+                }
+                acc=this[0];
+                start=1;
+        }
+        for(let i=start;i<this.length;i++){
+                if(this[i]!==undefined){
+                        acc=fn(acc,this[i]);
                 }
         }
-    return result;
-}
-console.log(subarraySum([1,2,3,0,3],3));
+        return acc;
+};
+console.log([1,2,3].myReduce((acc,x)=>acc+x));
+console.log([].myReduce((a,b)=>a+b));
